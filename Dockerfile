@@ -1,25 +1,31 @@
-# ==================================
-# Use an official Python runtime as a parent image
-FROM python:3.10-slim
-RUN apt-get update && apt-get -y install libgl1-mesa-dev libglib2.0-0 build-essential; apt-get clean
-RUN pip install opencv-contrib-python-headless
+# Base image: Use an official Python image with a version that supports your dependencies
+FROM python:3.9-slim
 
-# Set environment variables
-ENV PYTHONDONTWRITEBYTECODE 1
-ENV PYTHONUNBUFFERED 1
+# Set environment variables for Python
+ENV PYTHONDONTWRITEBYTECODE=1
+ENV PYTHONUNBUFFERED=1
 
-# Set the working directory in the container
-WORKDIR /usr/src/zeta
+# Install required system dependencies
+RUN apt-get update && apt-get install -y \
+    gcc \
+    libgl1-mesa-glx \
+    libglib2.0-0 \
+    && rm -rf /var/lib/apt/lists/*
 
+# Set the working directory inside the container
+WORKDIR /app
+
+# Copy the requirements file to the working directory
+COPY requirements.txt .
 
 # Install Python dependencies
-# COPY requirements.txt and pyproject.toml if you're using poetry for dependency management
-COPY requirements.txt .
-RUN pip install --no-cache-dir --upgrade pip
 RUN pip install --no-cache-dir -r requirements.txt
 
-RUN pip install --no-cache-dir zetascale
-
-# Copy the rest of the application
+# Copy the rest of the application code to the working directory
 COPY . .
 
+# Expose port 8000 to allow external access
+EXPOSE 8000
+
+# Run the FastAPI application using Uvicorn with live reloading and proper logging
+CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000", "--workers", "4", "--log-level", "info"]

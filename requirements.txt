@@ -1,3 +1,6 @@
+fastapi
+uvicorn[standard]
+timm
 torch
-zetascale
-swarms
+Pillow
+loguru

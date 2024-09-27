@@ -1,0 +1,40 @@
+name: Deploy to Google Cloud Run
+
+on:
+  push:
+    branches:
+      - main  # Deploy on push to the main branch
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Google Cloud SDK
+        uses: google-github-actions/setup-gcloud@v1
+        with:
+          service_account_key: ${{ secrets.GCP_SA_KEY }}
+          project_id: ${{ secrets.GCP_PROJECT_ID }}
+
+      - name: Authenticate Docker with Google Artifact Registry
+        run: |
+          echo ${{ secrets.GCP_SA_KEY }} | base64 --decode --quiet | docker login -u _json_key --password-stdin https://gcr.io
+
+      - name: Build Docker image
+        run: |
+          docker build -t gcr.io/${{ secrets.GCP_PROJECT_ID }}/viti:latest .
+
+      - name: Push Docker image to Google Artifact Registry
+        run: |
+          docker push gcr.io/${{ secrets.GCP_PROJECT_ID }}/viti:latest
+
+      - name: Deploy to Google Cloud Run
+        run: |
+          gcloud run deploy viti-inference \
+          --image gcr.io/${{ secrets.GCP_PROJECT_ID }}/viti:latest \
+          --platform managed \
+          --region ${{ secrets.GCP_REGION }} \
+          --allow-unauthenticated

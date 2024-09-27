@@ -1,6 +1,8 @@
 fastapi
-uvicorn[standard]
+uvicorn
 timm
 torch
 Pillow
 loguru
+pydantic
+torchvision

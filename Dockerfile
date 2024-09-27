@@ -25,7 +25,7 @@ RUN pip install --no-cache-dir -r requirements.txt
 COPY . .
 
 # Expose port 8000 to allow external access
-EXPOSE 8000
+EXPOSE 8080
 
-# Run the FastAPI application using Uvicorn with live reloading and proper logging
-CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000", "--workers", "4", "--log-level", "info"]
+# Run the application using python3
+CMD ["python3", "main.py"]

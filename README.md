@@ -96,7 +96,7 @@ You can install ViTI via **pip** using the provided `requirements.txt` or manual
 - **Loguru**: For logging.
 
 ```bash
-pip install fastapi uvicorn torch timm loguru pillow pydantic
+pip3 install -r requirements.txt
 ```
 
 ## API Endpoints

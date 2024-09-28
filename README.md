@@ -69,7 +69,8 @@ Single image inference using `resnet50`:
 curl -X POST "http://localhost:8000/v1/vision/inference" \
     -H "Content-Type: application/json" \
     -d '{
-          "image_base64": ["<your_base64_encoded_image>"],
+          "image_base64": ["iVBORw0KGgoAAAANSUhEUgAAAGQAAABkCAIAAAD/gAIDAAABBklEQVR4nO3cwQnDMBQFQcukuaSX+Jge7GOKSX1uwQsCE5gp4CGW
+"],
           "model_name": "resnet50"
         }'
 ```

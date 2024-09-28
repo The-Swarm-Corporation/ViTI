@@ -23,9 +23,9 @@ ToC
 ```content of cloudbuild.yaml
 steps:
   - name: 'gcr.io/cloud-builders/docker'
-    args: ['build', '-f', 'Dockerfile', '-t', 'us-central1-docker.pkg.dev/kalygo-436411/viti/viti:latest', '.']
+    args: ['build', '-f', 'Dockerfile', '-t', 'us-central1-docker.pkg.dev/<YOUR_GCP_PROJECT_ID>/viti/viti:latest', '.']
   - name: 'gcr.io/cloud-builders/docker'
-    args: ['push', 'us-central1-docker.pkg.dev/kalygo-436411/viti/viti:latest']
+    args: ['push', 'us-central1-docker.pkg.dev/<YOUR_GCP_PROJECT_ID>/viti/viti:latest']
 ```
 
 ## 3 - Upload entire project to Google Cloud Build and build an image

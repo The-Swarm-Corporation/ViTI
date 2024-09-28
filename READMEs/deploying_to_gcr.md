@@ -3,10 +3,10 @@
 ToC
 
 1. Create a repository in Google Artifact Registry
-2. Add cloudbuild.yaml
-3. Upload the project code to Google Cloud Build and build an image
+2. Add correct project id to cloudbuild.yaml
+3. Upload entire project to Google Cloud Build and build an image
 4. Check that the build was stored in Artifact Registry
-5. Add service.yaml
+5. Add correct project id to service.yaml
 6. Create Cloud run service
 7. Make service public
 
@@ -18,7 +18,7 @@ ToC
   - select `us-central1` as the region
   - leave everything else default
 
-## 2 - Add cloudbuild.yaml
+## 2 - Add correct project id to cloudbuild.yaml
 
 ```content of cloudbuild.yaml
 steps:
@@ -28,7 +28,7 @@ steps:
     args: ['push', 'us-central1-docker.pkg.dev/kalygo-436411/viti/viti:latest']
 ```
 
-## 3 - Upload the project code to Google Cloud Build and build an image
+## 3 - Upload entire project to Google Cloud Build and build an image
 
 - gcloud builds submit --region=us-central1 --config cloudbuild.yaml
 
@@ -36,7 +36,7 @@ steps:
 
 https://console.cloud.google.com/artifacts/docker/<YOUR_GCP_PROJECT_ID>/us-central1/viti
 
-## 5 - Add service.yaml
+## 5 - Add correct project id to service.yaml
 
 ```content of service.yaml
 apiVersion: serving.knative.dev/v1

@@ -1,0 +1,5 @@
+steps:
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['build', '-f', 'Dockerfile', '-t', 'us-central1-docker.pkg.dev/<YOUR_GCP_PROJECT_ID>/viti/viti:latest', '.']
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['push', 'us-central1-docker.pkg.dev/<YOUR_GCP_PROJECT_ID>/viti/viti:latest']
